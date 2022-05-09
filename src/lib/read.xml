@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+status:指定log4j本身的列印日誌的級別
+<!-- configuration 常見的兩個屬性status,monitorInterval
+status:指定log4j本身的列印日誌的級別
+monitorInterval:自動重新配置的監測間隔時間，單位是s,最小是5s -->
+<configuration status="ALL" monitorInterval="30">
+	<properties>
+		<property name="LOG_HOME">/home/sixson/Log</property>
+	</properties>
+	<!-- Appenders節點，常見的有三種子節點:Console、RollingFile、File
+	Console:節點用來定義輸出到控制檯的Appender
+	File:義輸出到指定位置的檔案的Appender
+	RollingFile:定義超過指定大小自動刪除舊的建立新的的Appender
+	-->
+	<Appenders>
+               <!-- Console常用的2個屬性
+               name:指定Appender的名字
+               target:SYSTEM_OUT 或 SYSTEM_ERR,一般只設置預設:SYSTEM_OUT
+               -->
+               <!-- Console常用的節點 PatternLayout:pattern 輸出格式
+               target:SYSTEM_OUT 或 SYSTEM_ERR,一般只設置預設:SYSTEM_OUT
+               -->
+		<Console name="LogName" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] [%-5level] %c{36}:%L --- %m%n" />
+		</Console>
+                <!-- RollingFile 常用屬性
+                name:指定Appender的名字
+                filePattern:輸出日誌的目的檔案帶全路徑的檔名-->
+                <!-- RollingFile 常用節點
+                PatternLayout:輸出格式，不設定預設為:%m%n
+                Policies:什麼時候進行新建日誌檔案輸出日誌-->
+		<RollingFile name="LogName"
+			filePattern="${LOG_HOME}/logName.log.%d{yyyy-MM-dd}">
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%-5level] %l %c{36} - %m%n" />
+			<Policies>
+			       <!-- TimeBasedTriggeringPolicy 常用節點
+			       基於時間的滾動策略，interval屬性用來指定多久滾動一次，預設是1 hour。
+			       modulate=true用來調整時間-->
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+			<DirectWriteRolloverStrategy />
+		</RollingFile>
+
+	</Appenders>
+       <!-- Loggers節點，常見的有兩種:Root和Logger
+       Root節點用來指定專案的根日誌，如果沒有單獨指定Logger，那麼就會預設使用該Root日誌輸出
+       level:日誌輸出級別，共有8個級別，按照從低到高為：All < Trace < Debug < Info < Warn < Error < Fatal < 		OFF-->
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="LogName" />
+		</Root>
+	</Loggers>
+</configuration>
+
+       <!-- XML設定參考:https://www.796t.com/article.php?id=194368-->

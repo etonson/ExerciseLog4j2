@@ -1,0 +1,21 @@
+{
+    "created_time": "2022-05-09T16:12:08Z",
+    "files": [
+        {
+            "attachment_folder": "",
+            "created_time": "2022-05-09T16:12:28Z",
+            "id": "2",
+            "modified_time": "2022-05-09T16:32:28Z",
+            "name": "readme.md",
+            "signature": "784285914942225772",
+            "tags": [
+            ]
+        }
+    ],
+    "folders": [
+    ],
+    "id": "1",
+    "modified_time": "2022-05-09T16:12:08Z",
+    "signature": "207324018457944",
+    "version": 3
+}
